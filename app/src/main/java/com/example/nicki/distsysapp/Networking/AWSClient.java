@@ -1,24 +1,18 @@
-package com.example.nicki.distsysapp;
+package com.example.nicki.distsysapp.Networking;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import org.glassfish.jersey.filter.LoggingFilter;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.SimpleTimeZone;
-import java.util.logging.Formatter;
-import java.util.logging.LogRecord;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.json.JSONObject;
 
 /*
  *

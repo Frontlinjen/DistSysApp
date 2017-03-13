@@ -1,6 +1,5 @@
-package com.example.nicki.distsysapp;
+package com.example.nicki.distsysapp.Networking;
 
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.client.Client;

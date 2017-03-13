@@ -33,7 +33,7 @@ public class TaskCategoryList extends AppCompatActivity {
         lv.setClickable(true);
         //Get all tag through Lambda function and display them in the ListView.
 
-
+/*
         try {
             lv.setAdapter(new ArrayAdapter< String >(this, R.layout.tasks, taskDAO.getTaskList()));
         } catch (DALException e) {
@@ -50,6 +50,7 @@ public class TaskCategoryList extends AppCompatActivity {
             }
 
         });
+        */
     }
 
     public String getTag() {
@@ -60,12 +61,12 @@ public class TaskCategoryList extends AppCompatActivity {
         this.tag = tag;
     }
 
-    public void taskList1() throws DALException {
+  /*  public void taskList1() throws DALException {
         for (int i = 0; i > taskDAO.getTaskList().size(); i++){
             ArrayList<String> list = null;
 
             list.add(taskDAO.getTask(Integer.toString(i)));
         }
     }
-
+*/
 }

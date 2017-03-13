@@ -1,4 +1,4 @@
-package com.example.nicki.distsysapp;
+package com.example.nicki.distsysapp.Networking;
 
 import java.util.Arrays;
 import java.util.HashMap;
