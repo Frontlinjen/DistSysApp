@@ -1,31 +1,24 @@
 package com.example.nicki.distsysapp;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-        import java.net.MalformedURLException;
-        import java.net.URL;
-        import java.nio.charset.StandardCharsets;
-        import java.security.MessageDigest;
-        import org.glassfish.jersey.filter.LoggingFilter;
-        import java.security.NoSuchAlgorithmException;
-        import java.text.SimpleDateFormat;
-        import java.util.Date;
-        import java.util.SimpleTimeZone;
-        import java.util.logging.Formatter;
-        import java.util.logging.LogRecord;
-        import javax.crypto.Mac;
-        import javax.crypto.spec.SecretKeySpec;
-        import javax.ws.rs.client.Client;
-        import javax.ws.rs.client.ClientBuilder;
-        import javax.ws.rs.client.Entity;
-        import javax.ws.rs.client.Invocation;
-        import javax.ws.rs.client.WebTarget;
-        import javax.ws.rs.core.MediaType;
-        import org.glassfish.jersey.filter.LoggingFilter;
-        import org.json.JSONObject;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import org.glassfish.jersey.filter.LoggingFilter;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.SimpleTimeZone;
+import java.util.logging.Formatter;
+import java.util.logging.LogRecord;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.json.JSONObject;
 
 /*
  *
@@ -90,7 +83,7 @@ public class AWSClient {
         System.out.println(authorizer.toString());
         return true;
     }
-    public static void main(String[] args) throws MalformedURLException {
+    public static void main(String[] args){
         AWSClient client = new AWSClient();
         client.login("s153255", "kode");
         client.SetTarget(new URL(" https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks"));
