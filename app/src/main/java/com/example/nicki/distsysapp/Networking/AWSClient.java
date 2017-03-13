@@ -24,6 +24,7 @@ class Crypto{
     /**
 
      Begin copy from: http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-java
+     Dato: 14/3/2017 kl. 00:34
 
      */
 

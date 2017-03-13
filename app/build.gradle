@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
     compile 'net.schmizz:sshj:0.10.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
