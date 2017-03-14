@@ -6,7 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.example.nicki.distsysapp.Networking.AWSClient;
+import com.example.nicki.distsysapp.Networking.URL;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -16,6 +21,7 @@ public class CreateTask extends AppCompatActivity {
 
     EditText title, description, price, provider, urgency, adress;
     Button cancel, create;
+    AWSClient awsClient = new AWSClient();
 
 
     @Override
@@ -36,11 +42,42 @@ public class CreateTask extends AppCompatActivity {
         final java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         final Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
 
+        final Toast toast2 = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
+
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskDTO task  = new TaskDTO("id", "title", "description", 1, 1, true, true, 1, "adress", 10, date, date, "id3");
+
+                JSONObject newTask = new JSONObject();
+/*                String title, description, ECT, street, creatorid;
+                float price;
+                int views, zipaddress;
+                boolean urgent, supplies;
+                int[] tags;
+                System.out.println("Create new task:");
+                boolean created = false;
+
+*/
+                try {
+                    newTask.put("title", title);
+                    newTask.put("description", description);
+                    newTask.put("price", price);
+                    newTask.put("ECT", "ok");
+                    newTask.put("supplies", provider);
+                    newTask.put("urgent", urgency);
+                    newTask.put("street", adress);
+                    newTask.put("zipaddress", 1212);
+                    newTask.put("tags", 1);
+                    System.out.println(newTask.toString());
+                    awsClient.POST(newTask.toString());
+
+                    toast.show();
+                } catch (JSONException ex) {
+                    System.out.println("Creation failed!");
+                    Logger.getLogger(CreateTask.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
                 toast.show();
             }
         });
@@ -49,3 +86,6 @@ public class CreateTask extends AppCompatActivity {
 
     }
 }
+
+
+// TaskDTO task  = new TaskDTO("id", "title", "description", 1, 1, true, true, 1, "adress", 10, date, date, "id3");
