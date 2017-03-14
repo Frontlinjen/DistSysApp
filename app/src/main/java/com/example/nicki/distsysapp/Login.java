@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (verified){
-                    Intent i = new Intent(getApplicationContext(),TaskList.class);
+                    Intent i = new Intent(getApplicationContext(),MainMenu.class);
                     startActivity(i);
                 }
 

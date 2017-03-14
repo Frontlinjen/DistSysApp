@@ -2,32 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/mainmenuText"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="TextView" />
+        android:text="Velkommen"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.46" />
 
     <Button
         android:id="@+id/CreateTask"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Create Task" />
+
+    <Space
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.17"
-        android:text="Button" />
+        android:layout_weight="0.11" />
 
     <Button
         android:id="@+id/ShowTaskList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="50dp"
+        android:text="Show List of Tasks" />
 
-    <Button
-        android:id="@+id/button4"
+    <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.20"
-        android:text="Button" />
+        android:layout_weight="0.17" />
+
+    <Button
+        android:id="@+id/Edit_or_delete_task"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Edit or Delete Task" />
 
 </LinearLayout>
