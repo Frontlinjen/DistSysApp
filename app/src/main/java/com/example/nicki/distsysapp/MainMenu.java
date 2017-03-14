@@ -23,10 +23,6 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         bC= (Button) findViewById(R.id.CreateTask);
-        bS= (Button) findViewById(R.id.ShowTaskList);
-        bE= (Button) findViewById(R.id.Edit_or_delete_task);
-        final Toast toast = Toast.makeText(getApplicationContext(), "Not yet Implemented", Toast.LENGTH_SHORT);
-
         bC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,20 +31,6 @@ public class MainMenu extends AppCompatActivity {
                 }
 
             });
-
-        bS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toast.show();
-            }
-        });
-
-        bE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toast.show();
-            }
-        });
 
     }
 }
