@@ -15,7 +15,7 @@ import com.example.nicki.distsysapp.Networking.URL;
 import java.sql.Date;
 import java.util.Calendar;
 
-import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
+//import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 
 public class CreateTask extends AppCompatActivity {
 
@@ -51,7 +51,7 @@ public class CreateTask extends AppCompatActivity {
 
                 JSONObject newTask = new JSONObject();
 /*                String title, description, ECT, street, creatorid;
-                float price;
+                float price;s
                 int views, zipaddress;
                 boolean urgent, supplies;
                 int[] tags;

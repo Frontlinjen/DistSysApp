@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -25,8 +26,29 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
     compile 'net.schmizz:sshj:0.10.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile('com.google.http-client:google-http-client:1.22.0', {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+        exclude group: 'junit' , module: 'junit'
+        exclude group: 'com.google.android', module: 'android'
+    })
+    compile( 'com.google.http-client:google-http-client-android:1.22.0', {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    compile( 'com.google.http-client:google-http-client-gson:1.22.0', {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    compile( 'com.google.http-client:google-http-client-jackson:1.22.0', {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    compile( 'com.google.http-client:google-http-client-jackson2:1.22.0', {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    compile( 'com.google.http-client:google-http-client-protobuf:1.22.0', {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
     testCompile 'junit:junit:4.12'
 }

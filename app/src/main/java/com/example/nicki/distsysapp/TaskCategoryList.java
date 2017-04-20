@@ -8,9 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/*
 import com.example.nicki.distsysapp.DatabaseController.DALException;
 import com.example.nicki.distsysapp.DatabaseController.MySQLTaskDAO;
 import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
+*/
 
 import java.util.ArrayList;
 
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 public class TaskCategoryList extends AppCompatActivity {
     ListView lv;
     String tag;
-    MySQLTaskDAO taskDAO = new MySQLTaskDAO();
-    TaskDTO taskDTO = new TaskDTO();
+//    MySQLTaskDAO taskDAO = new MySQLTaskDAO();
+//    TaskDTO taskDTO = new TaskDTO();
 
 
     protected void onCreate(Bundle savedInstanceState) {
