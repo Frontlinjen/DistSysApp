@@ -14,6 +14,17 @@ import com.example.nicki.distsysapp.DatabaseController.MySQLTaskDAO;
 import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 */
 
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.jackson.JacksonFactory;
+
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -23,17 +34,34 @@ import java.util.ArrayList;
 public class TaskCategoryList extends AppCompatActivity {
     ListView lv;
     String tag;
-//    MySQLTaskDAO taskDAO = new MySQLTaskDAO();
-//    TaskDTO taskDTO = new TaskDTO();
-
+    HttpTransport transport = new NetHttpTransport();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks);
 
-        lv =(ListView)findViewById(R.id.tasks);
+        lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
         //Get all tag through Lambda function and display them in the ListView.
+        HttpRequestFactory requestFactory = transport.createRequestFactory(
+                new HttpRequestInitializer() {
+                    @Override
+                    public void initialize(HttpRequest request) throws IOException {
+                        request.setParser(new JsonObjectParser(new JacksonFactory()));
+                    }
+                }
+
+        );
+
+        HttpRequest req = requestFactory.buildGetRequest("");
+        req.setHeaders(); //Sæt headers her
+        try {
+            HttpResponse res = req.execut;
+            System.out.println(res.parseAsString());
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
 
 /*
         try {
@@ -52,7 +80,7 @@ public class TaskCategoryList extends AppCompatActivity {
             }
 
         });
-        */
+
     }
 
     public String getTag() {
@@ -62,7 +90,7 @@ public class TaskCategoryList extends AppCompatActivity {
     private void setTag(String tag) {
         this.tag = tag;
     }
-
+*/
   /*  public void taskList1() throws DALException {
         for (int i = 0; i > taskDAO.getTaskList().size(); i++){
             ArrayList<String> list = null;
@@ -71,4 +99,5 @@ public class TaskCategoryList extends AppCompatActivity {
         }
     }
 */
+    }
 }

@@ -5,11 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.nicki.distsysapp.R;
-
-import javax.ws.rs.WebApplicationException;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -31,6 +26,16 @@ public class MainMenu extends AppCompatActivity {
                 }
 
             });
+
+        bS =(Button) findViewById(R.id.ShowTaskList);
+        bC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),TaskCategoryList.class);
+                startActivity(i);
+            }
+
+        });
 
     }
 }
