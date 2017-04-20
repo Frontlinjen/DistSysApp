@@ -14,6 +14,7 @@ import com.example.nicki.distsysapp.DatabaseController.MySQLTaskDAO;
 import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 */
 
+import com.google.api.client.http.HttpExecuteInterceptor;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -43,25 +44,7 @@ public class TaskCategoryList extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
         //Get all tag through Lambda function and display them in the ListView.
-        HttpRequestFactory requestFactory = transport.createRequestFactory(
-                new HttpRequestInitializer() {
-                    @Override
-                    public void initialize(HttpRequest request) throws IOException {
-                        request.setParser(new JsonObjectParser(new JacksonFactory()));
-                    }
-                }
 
-        );
-
-        HttpRequest req = requestFactory.buildGetRequest("");
-        req.setHeaders(); //Sæt headers her
-        try {
-            HttpResponse res = req.execut;
-            System.out.println(res.parseAsString());
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
 
 /*
         try {
