@@ -13,8 +13,7 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
 
     boolean verified;
-    EditText sn;
-    EditText pw;
+    EditText studieNummer, password;
     Button submit;
 
 
@@ -23,8 +22,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sn = (EditText) findViewById(R.id.studienummer);
-        pw = (EditText) findViewById(R.id.password);
+        studieNummer = (EditText) findViewById(R.id.studienummer);
+        password = (EditText) findViewById(R.id.password);
         submit = (Button) findViewById(R.id.Sign_in);
 
         final Toast toast = Toast.makeText(getApplicationContext(), "Unable to login, check your connection and spelling", Toast.LENGTH_SHORT);
