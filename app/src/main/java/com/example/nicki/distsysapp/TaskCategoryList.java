@@ -14,6 +14,10 @@ import com.example.nicki.distsysapp.DatabaseController.MySQLTaskDAO;
 import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 */
 
+import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Types.Tag;
+import com.example.nicki.distsysapp.Types.TagList;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -21,12 +25,14 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson.JacksonFactory;
 
 import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nicki on 3/12/17.
@@ -35,7 +41,6 @@ import java.util.ArrayList;
 public class TaskCategoryList extends AppCompatActivity {
     ListView lv;
     String tag;
-    HttpTransport transport = new NetHttpTransport();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,44 +48,29 @@ public class TaskCategoryList extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
-        //Get all tag through Lambda function and display them in the ListView.
+        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+                request.setParser(new JsonObjectParser(new JacksonFactory()));
+            }
+        });
+        HttpCom httpCom = new HttpCom();
+        List<Tag> taglist = httpCom.getTagList(requestFactory).getList();
 
 
-/*
         try {
-            lv.setAdapter(new ArrayAdapter< String >(this, R.layout.tasks, taskDAO.getTaskList()));
-        } catch (DALException e) {
+            List<Integer> tags = (List<Integer>) tagsResponse.parseAs(List.class);
+            lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, tags));
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                    //Sets the tag, which determines what list will be shown in the next activity.
+                    tag = arg0.getItemAtPosition(position).toString();
+                    Intent i = new Intent(getApplicationContext(), TaskList.class);
+                    startActivity(i);
+                }
+            });
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-                //Sets the tag, which determines what list will be shown in the next activity.
-                setTag((String)arg0.getItemAtPosition(position));
-
-                Intent i = new Intent(getApplicationContext(),TaskList.class);
-                startActivity(i);
-
-            }
-
-        });
-
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    private void setTag(String tag) {
-        this.tag = tag;
-    }
-*/
-  /*  public void taskList1() throws DALException {
-        for (int i = 0; i > taskDAO.getTaskList().size(); i++){
-            ArrayList<String> list = null;
-
-            list.add(taskDAO.getTask(Integer.toString(i)));
-        }
-    }
-*/
     }
 }

@@ -5,13 +5,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/mainmenuText"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Velkommen"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,11 +31,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.17" />
-
-    <Button
-        android:id="@+id/Edit_or_delete_task"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Edit or Delete Task" />
 
 </LinearLayout>

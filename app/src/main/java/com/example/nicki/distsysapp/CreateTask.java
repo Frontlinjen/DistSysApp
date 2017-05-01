@@ -6,13 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.jackson.JacksonFactory;
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.example.nicki.distsysapp.Networking.AWSClient;
-import com.example.nicki.distsysapp.Networking.URL;
-import java.sql.Date;
 import java.util.Calendar;
 
 //import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
@@ -21,7 +27,6 @@ public class CreateTask extends AppCompatActivity {
 
     EditText title, description, price, provider, urgency, adress;
     Button cancel, create;
-    AWSClient awsClient = new AWSClient();
 
 
     @Override
@@ -48,8 +53,7 @@ public class CreateTask extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                JSONObject newTask = new JSONObject();
+                JsonObject newTask = new JsonObject();
 /*                String title, description, ECT, street, creatorid;
                 float price;s
                 int views, zipaddress;
@@ -59,25 +63,24 @@ public class CreateTask extends AppCompatActivity {
                 boolean created = false;
 
 */
-                try {
-                    newTask.put("title", title);
-                    newTask.put("description", description);
-                    newTask.put("price", price);
-                    newTask.put("ECT", "ok");
-                    newTask.put("supplies", provider);
-                    newTask.put("urgent", urgency);
-                    newTask.put("street", adress);
-                    newTask.put("zipaddress", 1212);
-                    newTask.put("tags", 1);
+                HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new HttpRequestInitializer() {
+                    @Override
+                    public void initialize(HttpRequest request) throws IOException {
+                        request.setParser(new JsonObjectParser(new JacksonFactory()));
+                    }
+                });
+                HttpCom httpCom = new HttpCom();
+                    newTask.addProperty("title", title.toString());
+                    newTask.addProperty("description", description.toString());
+                    newTask.addProperty("price", price.toString());
+                    newTask.addProperty("ECT", "ok");
+                    newTask.addProperty("supplies", provider.toString());
+                    newTask.addProperty("urgent", urgency.toString());
+                    newTask.addProperty("street", adress.toString());
+                    newTask.addProperty("zipaddress", 1212);
+                    newTask.addProperty("tags", 1);
                     System.out.println(newTask.toString());
-                    awsClient.POST(newTask.toString());
-
-                    toast.show();
-                } catch (JSONException ex) {
-                    System.out.println("Creation failed!");
-                    Logger.getLogger(CreateTask.class.getName()).log(Level.SEVERE, null, ex);
-
-                }
+                    httpCom.CreateTask(newTask, requestFactory);
                 toast.show();
             }
         });
@@ -86,6 +89,3 @@ public class CreateTask extends AppCompatActivity {
 
     }
 }
-
-
-// TaskDTO task  = new TaskDTO("id", "title", "description", 1, 1, true, true, 1, "adress", 10, date, date, "id3");

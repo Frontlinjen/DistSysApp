@@ -1,7 +1,5 @@
 package com.example.nicki.distsysapp;
 
-import com.example.nicki.distsysapp.Networking.AWSClient;
-import com.example.nicki.distsysapp.Networking.URL;
 
 import android.accounts.AccountManager;
 import android.content.Intent;
@@ -11,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import javax.ws.rs.WebApplicationException;
 
 public class Login extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AccountManager accountManager = AccountManager.get(getApplicationContext());
-                accountManager.
+                //accountManager.
 
             /*try {
                     verified = awsClient.login(sn.getText().toString(), pw.getText().toString());
