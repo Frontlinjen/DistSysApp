@@ -1,61 +1,22 @@
 package com.example.nicki.distsysapp.Types;
 
-import java.util.List;
-
 /**
- * Created by nicki on 5/1/17.
+ * Created by Thomas on 01-05-2017.
  */
 
 public class Task {
-    public int getId() {
-        return id;
-    }
+    String title, description, price, provider, urgency, address, ECT;
+    int zipAddress, tags;
 
-    public int getPrice() {
-        return price;
+    public Task(String title, String description, String price, String provider, String urgency, String address, String ECT, int zipAddress, int tags){
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.provider = provider;
+        this.urgency = urgency;
+        this.address = address;
+        this.ECT = ECT;
+        this.zipAddress = zipAddress;
+        this.tags = tags;
     }
-
-    public int getETC() {
-        return ETC;
-    }
-
-    public int getSupplies() {
-        return supplies;
-    }
-
-    public int getUrgent() {
-        return urgent;
-    }
-
-    public int getViews() {
-        return views;
-    }
-
-    public int getZipaddress() {
-        return zipaddress;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCreatorid() {
-        return creatorid;
-    }
-
-    public List<Integer> getTags() {
-        return tags;
-    }
-
-    int id, price, ETC, supplies, urgent, views, zipaddress;
-    String title, description, street, creatorid;
-    List<Integer> tags;
 }
