@@ -8,11 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Types.Task;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.JsonParser;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.gson.JsonObject;
 
@@ -53,7 +56,6 @@ public class CreateTask extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObject newTask = new JsonObject();
 /*                String title, description, ECT, street, creatorid;
                 float price;s
                 int views, zipaddress;
@@ -70,18 +72,27 @@ public class CreateTask extends AppCompatActivity {
                     }
                 });
                 HttpCom httpCom = new HttpCom();
-                    newTask.addProperty("title", title.toString());
-                    newTask.addProperty("description", description.toString());
-                    newTask.addProperty("price", price.toString());
-                    newTask.addProperty("ECT", "ok");
-                    newTask.addProperty("supplies", provider.toString());
-                    newTask.addProperty("urgent", urgency.toString());
-                    newTask.addProperty("street", adress.toString());
-                    newTask.addProperty("zipaddress", 1212);
-                    newTask.addProperty("tags", 1);
+                Task newTask = new Task(
+                        title.toString(),
+                        description.toString(),
+                        price.toString(),
+                        provider.toString(),
+                        urgency.toString(),
+                        adress.toString(),
+                        "ok",
+                        8210,
+                        1
+                        );
+                //Parse task to json
+                //JsonObject newTask =
+
                     System.out.println(newTask.toString());
-                    httpCom.CreateTask(newTask, requestFactory);
-                toast.show();
+                    if(httpCom.CreateTask(, requestFactory)) {
+                        toast.show();
+                    }
+                    else{
+                        System.out.println("Error httpCom.CreateTask returned false");
+                    }
             }
         });
 
