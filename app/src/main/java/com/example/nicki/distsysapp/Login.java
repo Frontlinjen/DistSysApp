@@ -33,8 +33,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AccountManager accountManager = AccountManager.get(getApplicationContext());
+<<<<<<< Updated upstream
                 //accountManager.
 
+=======
+>>>>>>> Stashed changes
             /*try {
                     verified = awsClient.login(sn.getText().toString(), pw.getText().toString());
                 } catch (WebApplicationException e) {

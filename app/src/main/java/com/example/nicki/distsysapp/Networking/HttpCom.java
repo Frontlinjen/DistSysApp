@@ -9,9 +9,13 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
+<<<<<<< Updated upstream
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
+=======
+import com.google.api.client.http.javanet.NetHttpTransport;
+>>>>>>> Stashed changes
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.JsonParser;
 import com.google.api.client.json.jackson.JacksonFactory;
@@ -24,14 +28,19 @@ import java.io.IOException;
  * Created by Thomas on 20-04-2017.
  */
 
-public class HttpCom {
+gitpublic class HttpCom {
 
+<<<<<<< Updated upstream
     private HttpTransport transport = new NetHttpTransport();
     private HttpRequestFactory requestFactory = transport.createRequestFactory(
+=======
+    private HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(
+>>>>>>> Stashed changes
             new HttpRequestInitializer() {
                 @Override
                 public void initialize(HttpRequest request) throws IOException {
-                    request.setParser(new JsonObjectParser(new JacksonFactory()));
+                    request.setResponseInterceptor(new Reauthenticator());
+                    request.setInterceptor(new AWSAuthenticator());
                 }
             }
     );
