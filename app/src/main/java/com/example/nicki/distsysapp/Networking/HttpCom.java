@@ -14,9 +14,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.JsonParser;
-import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
@@ -25,7 +22,7 @@ import java.io.IOException;
  */
 
 public class HttpCom {
-
+/*
     public TagList getTagList(HttpRequestFactory factory){
         try {
             HttpRequest httpRequest = factory.buildGetRequest(new GenericUrl("URL TIL TASKS"));
@@ -43,7 +40,7 @@ public class HttpCom {
         catch(IOException e){
             e.printStackTrace();
         }
-        return;
+        return null;
     }
 
     public void getCommentList(){
@@ -56,7 +53,7 @@ public class HttpCom {
             HttpExecuteInterceptor interceptor = new HttpExecuteInterceptor() {
                 @Override
                 public void intercept(HttpRequest request) throws IOException {
-                    request.setHeaders(); //TODO Se hvordan headers bliver sat i DistCLI
+                    //request.setHeaders(); //TODO Se hvordan headers bliver sat i DistCLI
                 }
             };
             interceptor.intercept(httpRequest);
@@ -73,5 +70,6 @@ public class HttpCom {
         }
         return false;
     }
+    */
 
 }

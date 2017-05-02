@@ -71,6 +71,7 @@ public class CreateTask extends AppCompatActivity {
                         request.setParser(new JsonObjectParser(new JacksonFactory()));
                     }
                 });
+
                 HttpCom httpCom = new HttpCom();
                 Task newTask = new Task(
                         title.toString(),
