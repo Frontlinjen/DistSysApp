@@ -1,8 +1,12 @@
 package com.example.nicki.distsysapp.Networking;
 
+import com.example.nicki.distsysapp.Login;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
@@ -10,6 +14,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import static java.lang.System.out;
 
@@ -19,41 +24,30 @@ import static java.lang.System.out;
 
 public class LoginClient {
 
-    public void login(String username, String password) throws IOException {
+    public boolean login(String username, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
 
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory();
-        GenericUrl url = new GenericUrl("https://dawa.aws.dk/login");
-
-        HttpResponse addressLookupResponse = null;
-        try {
-            HttpRequest addressLookup = factory.buildGetRequest(url);
-            addressLookupResponse = addressLookup.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Ignore the error and accept the address regardless
+        GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/login");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("username", username);
+        node.put("password", password);
+        HttpContent body = new ByteArrayContent(null, mapper.writeValueAsBytes(node));
+        HttpRequest request = factory.buildPostRequest(url, body);
+        HttpResponse response = request.execute();
+        switch (response.getStatusCode()){
+            case 200:
+            JsonNode responseNode = mapper.readTree(response.getContent());
+            JsonNode OAuthTokenNode = responseNode.get("Token");
+            String OAuthToken = OAuthTokenNode.asText();
+                break;
+            case 400:
+                throw new Login.BadRequestException("Bad request");
+            case 403:
+                return false;
+            case 500:
+                throw new Login.InternalServerException("Something went wrong with the server");
         }
-
-        if(addressLookupResponse != null && addressLookupResponse.isSuccessStatusCode() && addressLookupResponse.getContent() != null){
-            InputStream stream = null;
-
-            try{
-                stream = addressLookupResponse.getContent();
-                ObjectMapper mapper = new ObjectMapper();
-                JsonNode n = mapper.readTree(stream);
-                if(n.isArray() && !n.elements().hasNext()){ //If format changes and we do not recieve an array, then we shouldn't disallow the user to create the task
-                    raiseError(out, 400, "Invalid address specified");
-                    return;
-                }
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-            finally{
-                if(stream != null)
-                    stream.close();
-            }
-
-        }
+        return true;
     }
 }
