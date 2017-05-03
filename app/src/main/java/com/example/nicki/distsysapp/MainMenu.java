@@ -27,7 +27,7 @@ public class MainMenu extends AppCompatActivity {
             });
 
         listTagsButton =(Button) findViewById(R.id.ShowTaskList);
-        createTaskButton.setOnClickListener(new View.OnClickListener() {
+        listTagsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),TaskCategoryList.class);

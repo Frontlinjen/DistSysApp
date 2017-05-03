@@ -27,7 +27,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.json.jackson.JacksonFactory;
 
 import java.io.Console;
 import java.io.IOException;
@@ -39,7 +38,7 @@ import java.util.List;
  */
 
 public class TaskCategoryList extends AppCompatActivity {
-    ListView lv;
+    /*ListView lv;
     String tag;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +71,5 @@ public class TaskCategoryList extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

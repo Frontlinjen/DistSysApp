@@ -19,4 +19,76 @@ public class Task {
         this.zipAddress = zipAddress;
         this.tags = tags;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getECT() {
+        return ECT;
+    }
+
+    public void setECT(String ECT) {
+        this.ECT = ECT;
+    }
+
+    public int getZipAddress() {
+        return zipAddress;
+    }
+
+    public void setZipAddress(int zipAddress) {
+        this.zipAddress = zipAddress;
+    }
+
+    public int getTags() {
+        return tags;
+    }
+
+    public void setTags(int tags) {
+        this.tags = tags;
+    }
 }
