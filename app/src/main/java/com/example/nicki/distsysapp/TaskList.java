@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.nicki.distsysapp.Types.Tag;
+
 import java.util.ArrayList;
 
 /**
@@ -28,11 +30,13 @@ public class TaskList extends AppCompatActivity{
         lv =(ListView)findViewById(R.id.tasks);
         lv.setClickable(true);
 
-        //use the chosenCategory String
-        
+        Bundle b = getIntent().getExtras();
+        Tag tag = new Tag(b.getInt("id"), b.getString("name"));
+
+        //TODO Get taskList based on tag
         ArrayList<String> categoryList = null;
 
-        //switch to handle that whatever chosen
+        //TODO switch to handle that whatever chosen
         switch(chosenCategory){
 
         }

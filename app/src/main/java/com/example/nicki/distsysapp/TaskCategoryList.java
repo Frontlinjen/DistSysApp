@@ -33,7 +33,6 @@ import java.util.List;
 
 public class TaskCategoryList extends AppCompatActivity {
     ListView lv;
-    String tag;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +49,19 @@ public class TaskCategoryList extends AppCompatActivity {
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     //Sets the tag, which determines what list will be shown in the next activity.
-                    tag = arg0.getItemAtPosition(position).toString();
-                    Intent i = new Intent(getApplicationContext(), TaskList.class);
-                    startActivity(i);
+                    Bundle b = new Bundle();
+                    Object o = arg0.getItemAtPosition(position);
+                    if(o instanceof Tag){
+                        Tag selectedTag = (Tag)o;
+                        b.putInt("id", selectedTag.id);
+                        b.putString("name", selectedTag.name);
+                        Intent i = new Intent(getApplicationContext(), TaskList.class);
+                        i.putExtras(b);
+                        startActivity(i);
+                    }
+                    else{
+                        System.out.println("Object was not tag");
+                    }
                 }
             });
         }
