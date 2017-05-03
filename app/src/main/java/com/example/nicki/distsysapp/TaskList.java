@@ -17,7 +17,7 @@ public class TaskList extends AppCompatActivity{
 
     ListView lv;
     TaskCategoryList tcl = new TaskCategoryList();
-    String chosenCategory = tcl.getTag();
+    String chosenCategory;// = tcl.getTag();
 
 
 

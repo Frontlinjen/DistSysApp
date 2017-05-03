@@ -8,17 +8,16 @@ import android.widget.Button;
 
 public class MainMenu extends AppCompatActivity {
 
-    Button bC;
-    Button bS;
-    Button bE;
+    Button createTaskButton;
+    Button listTagsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        bC= (Button) findViewById(R.id.CreateTask);
-        bC.setOnClickListener(new View.OnClickListener() {
+        createTaskButton = (Button) findViewById(R.id.CreateTask);
+        createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(),CreateTask.class);
@@ -27,8 +26,8 @@ public class MainMenu extends AppCompatActivity {
 
             });
 
-        bS =(Button) findViewById(R.id.ShowTaskList);
-        bC.setOnClickListener(new View.OnClickListener() {
+        listTagsButton =(Button) findViewById(R.id.ShowTaskList);
+        listTagsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(),TaskCategoryList.class);

@@ -5,14 +5,14 @@ import com.google.api.client.util.Key;
 import java.util.List;
 
 /**
- * Created by Thomas on 26-04-2017.
+ * Created by Thomas on 01-05-2017.
  */
 
-public class TagList {
+public class TaskList {
     @Key
-    List<Tag> list;
+    List<Task> list;
 
-    public List<Tag> getList() {
+    public List<Task> getList() {
         return list;
     }
 }

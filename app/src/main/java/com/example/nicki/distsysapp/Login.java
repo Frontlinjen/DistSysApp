@@ -1,7 +1,6 @@
 package com.example.nicki.distsysapp;
 
 
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends AppCompatActivity {
+import com.example.nicki.distsysapp.Networking.LoginClient;
 
-    boolean verified;
-    EditText sn;
-    EditText pw;
+import java.io.IOException;
+
+public class Login extends AppCompatActivity implements View.OnClickListener {
+
+    EditText username, password;
     Button submit;
+    LoginClient loginClient = new LoginClient();
 
 
     @Override
@@ -23,35 +25,45 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sn = (EditText) findViewById(R.id.studienummer);
-        pw = (EditText) findViewById(R.id.password);
+        username = (EditText) findViewById(R.id.studienummer);
+        password = (EditText) findViewById(R.id.password);
         submit = (Button) findViewById(R.id.Sign_in);
 
-        final Toast toast = Toast.makeText(getApplicationContext(), "Unable to login, check your connection and spelling", Toast.LENGTH_SHORT);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AccountManager accountManager = AccountManager.get(getApplicationContext());
-<<<<<<< Updated upstream
-                //accountManager.
-
-=======
->>>>>>> Stashed changes
-            /*try {
-                    verified = awsClient.login(sn.getText().toString(), pw.getText().toString());
-                } catch (WebApplicationException e) {
-                    toast.show();
-                    e.printStackTrace();
-                }
-                if (verified){
-                    Intent i = new Intent(getApplicationContext(),MainMenu.class);
-                    startActivity(i);
-                }*/
-
-            }
-        });
+        submit.setOnClickListener(this);
 
     }
 
+    @Override
+    public void onClick(View v)  {
+        try {
+            if(loginClient.login(username.toString(), password.toString())) {
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+            }
+        } catch (IOException | InternalServerException | BadRequestException | UnauthorizedException e) {
+            final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
+
+
+
+    public static class InternalServerException extends Exception
+    {
+        public InternalServerException(String msg){
+        }
+    }
+
+    public static class UnauthorizedException extends Exception
+    {
+        public UnauthorizedException(String msg){
+        }
+    }
+
+    public static class BadRequestException extends Exception
+    {
+        public BadRequestException(String msg){
+        }
+    }
 }

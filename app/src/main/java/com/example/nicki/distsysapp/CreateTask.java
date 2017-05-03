@@ -1,5 +1,6 @@
 package com.example.nicki.distsysapp;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,18 +9,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Types.Task;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.gson.JsonObject;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 //import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 
@@ -42,7 +38,7 @@ public class CreateTask extends AppCompatActivity {
         adress = (EditText) findViewById(R.id.adress);
 
         cancel = (Button) findViewById(R.id.ctCancel);
-        create = (Button) findViewById(R.id.CreateTask);
+        create = (Button) findViewById(R.id.ctC);
 
         final java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         final Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
@@ -53,7 +49,6 @@ public class CreateTask extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObject newTask = new JsonObject();
 /*                String title, description, ECT, street, creatorid;
                 float price;s
                 int views, zipaddress;
@@ -63,29 +58,45 @@ public class CreateTask extends AppCompatActivity {
                 boolean created = false;
 
 */
-                HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-                    @Override
-                    public void initialize(HttpRequest request) throws IOException {
-                        request.setParser(new JsonObjectParser(new JacksonFactory()));
-                    }
-                });
-                HttpCom httpCom = new HttpCom();
-                    newTask.addProperty("title", title.toString());
-                    newTask.addProperty("description", description.toString());
-                    newTask.addProperty("price", price.toString());
-                    newTask.addProperty("ECT", "ok");
-                    newTask.addProperty("supplies", provider.toString());
-                    newTask.addProperty("urgent", urgency.toString());
-                    newTask.addProperty("street", adress.toString());
-                    newTask.addProperty("zipaddress", 1212);
-                    newTask.addProperty("tags", 1);
+                Task newTask = new Task(
+                        title.toString(),
+                        description.toString(),
+                        price.toString(),
+                        provider.toString(),
+                        urgency.toString(),
+                        adress.toString(),
+                        "ok",
+                        8210,
+                        1
+                        );
+
                     System.out.println(newTask.toString());
-                    httpCom.CreateTask(newTask, requestFactory);
-                toast.show();
+                try {
+                    if(new CreateTaskTask().execute(newTask).get()) {
+                        toast.show();
+                    }
+                    else{
+                        System.out.println("Error httpCom.CreateTask returned false");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
 
+    }
+}
+
+class CreateTaskTask extends AsyncTask<Task, Void, Boolean>{
+    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
+    HttpCom httpCom = new HttpCom();
+
+    @Override
+    protected Boolean doInBackground(Task... tasks) {
+        return httpCom.CreateTask(tasks[0], requestFactory);
     }
 }
