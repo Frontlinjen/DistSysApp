@@ -20,6 +20,12 @@
         <activity android:name=".CreateTask">
 
         </activity>
+        <activity android:name=".TaskCategoryList">
+
+        </activity>
+        <activity android:name=".TaskList">
+
+        </activity>
     </application>
 
 </manifest>

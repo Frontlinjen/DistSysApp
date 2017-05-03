@@ -8,15 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-/*
-import com.example.nicki.distsysapp.DatabaseController.DALException;
-import com.example.nicki.distsysapp.DatabaseController.MySQLTaskDAO;
-import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
-*/
 
 import com.example.nicki.distsysapp.Networking.HttpCom;
 import com.example.nicki.distsysapp.Types.Tag;
-import com.example.nicki.distsysapp.Types.TagList;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
 import com.google.api.client.http.HttpRequest;
@@ -38,7 +32,7 @@ import java.util.List;
  */
 
 public class TaskCategoryList extends AppCompatActivity {
-    /*ListView lv;
+    ListView lv;
     String tag;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +41,12 @@ public class TaskCategoryList extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest request) throws IOException {
-                request.setParser(new JsonObjectParser(new JacksonFactory()));
-            }
-        });
+        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
+
         HttpCom httpCom = new HttpCom();
-        List<Tag> taglist = httpCom.getTagList(requestFactory).getList();
-
-
-        try {
-            List<Integer> tags = (List<Integer>) tagsResponse.parseAs(List.class);
-            lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, tags));
+        List<Tag> taglist = httpCom.getTagList(requestFactory);
+        if (taglist != null) {
+            lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, taglist));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     //Sets the tag, which determines what list will be shown in the next activity.
@@ -68,8 +55,6 @@ public class TaskCategoryList extends AppCompatActivity {
                     startActivity(i);
                 }
             });
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }*/
+    }
 }

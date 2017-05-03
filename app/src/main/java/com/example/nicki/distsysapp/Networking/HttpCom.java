@@ -3,8 +3,8 @@ package com.example.nicki.distsysapp.Networking;
 import android.os.AsyncTask;
 
 import com.example.nicki.distsysapp.Types.Tag;
-import com.example.nicki.distsysapp.Types.TagList;
 import com.example.nicki.distsysapp.Types.Task;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.api.client.http.ByteArrayContent;
@@ -22,6 +22,9 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.JsonParser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Thomas on 20-04-2017.
@@ -29,12 +32,17 @@ import java.io.IOException;
 
 public class HttpCom{
 
-    public TagList getTagList(HttpRequestFactory factory){
+    public List<Tag> getTagList(HttpRequestFactory factory){
         try {
             HttpRequest httpRequest = factory.buildGetRequest(new GenericUrl("URL TIL TAGS"));
             HttpResponse httpResponse = httpRequest.execute();
-
-            //TODO Parse response
+            if(httpResponse.getStatusCode() == 200) {
+                InputStream stream = httpResponse.getContent();
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode node = mapper.readTree(stream);
+                ArrayList<Tag> tags = mapper.treeToValue(node, ArrayList.class);
+                return tags;
+            }
         }
         catch(IOException e){
             e.printStackTrace();
@@ -65,7 +73,7 @@ public class HttpCom{
             /*HttpExecuteInterceptor interceptor = new HttpExecuteInterceptor() {
                 @Override
                 public void intercept(HttpRequest request) throws IOException {
-                    //request.setHeaders(); //TODO Se hvordan headers bliver sat i DistCLI
+                    //request.setHeaders();
                 }
             };
             interceptor.intercept(httpRequest);*/
