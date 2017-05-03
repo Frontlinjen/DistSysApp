@@ -4,14 +4,19 @@ import com.example.nicki.distsysapp.Networking.AWSAuthenticator;
 import com.example.nicki.distsysapp.Networking.AWSReauthenticator;
 import com.example.nicki.distsysapp.Networking.AWSRequester;
 import com.example.nicki.distsysapp.Networking.LoginClient;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.testing.http.HttpTesting;
 import com.google.api.client.testing.http.MockHttpTransport;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,4 +58,23 @@ public class AWSAuthenticatorTests {
         String out = headers.getAuthorization();
     }
 
+    @Test
+    public void canCreateTaskObject() throws IOException {
+        final String task = "{\n" +
+                            "  \"Title\": \"Make database plz\",\n" +
+                            "  \"Description\": \"I need database\",\n" +
+                            "  \"Price\": 200,\n" +
+                            "  \"ETC\": 10,\n" +
+                            "  \"Supplies\": 0,\n" +
+                            "  \"Urgent\": 1,\n" +
+                            "  \"Views\": 0,\n" +
+                            "  \"Street\": \"street\",\n" +
+                            "  \"Zipaddress\": 0\n" +
+                            "}";
+        HttpRequestFactory factory = new NetHttpTransport().createRequestFactory(new AWSRequester("s153255", OAuthToken));
+        HttpContent content = new ByteArrayContent(null, task.getBytes());
+        HttpRequest request = factory.buildPostRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks"), content);
+        HttpResponse response = request.execute();
+
+    }
 }

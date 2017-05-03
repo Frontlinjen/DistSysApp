@@ -9,7 +9,9 @@ import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.util.escape.CharEscapers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -102,7 +104,6 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         SimpleDateFormat datestamp = new SimpleDateFormat("YYYYMMdd");
         datestamp.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
         return datestamp.format(d);
-        return "20170321";
     }
 
     private static String getAmzDate(Date d)
@@ -199,7 +200,10 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
             String contentStr;
             if(content != null)
             {
-                contentStr = content.toString();
+                ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+                content.writeTo(ostream);
+                ostream.close();
+                contentStr = ostream.toString();
             }
             else
             {
@@ -209,6 +213,8 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             //Java standard defines SHA256 always is available, so we should never reach this point...
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return builder.toString();
     }
@@ -218,9 +224,11 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         Date d = new Date();
         HttpHeaders headers = request.getHeaders();
         headers.set("x-amz-date", getAmzDate(d));
+        headers.set("host", request.getUrl().getHost());
         Credentials credentials = credentialProvider.getCredentials();
         StringBuilder hackFix = new StringBuilder();
         String canonicalRequest = buildCanonicalRequest(request, hackFix);
+        System.out.println("CanRequest: " + canonicalRequest);
         String canonicalHash = null;
         try {
             canonicalHash = Crypto.byteToHexString(Crypto.sha256(canonicalRequest));

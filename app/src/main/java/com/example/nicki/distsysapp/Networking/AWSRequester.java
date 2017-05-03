@@ -10,14 +10,17 @@ import java.io.IOException;
  */
 
 public class AWSRequester implements HttpRequestInitializer {
-
-    public void login(String username, String password){
-
+    String username;
+    String OAuth;
+    public AWSRequester(String username, String OAuth){
+        this.username = username;
+        this.OAuth = OAuth;
     }
-
     @Override
     public void initialize(HttpRequest request) throws IOException {
-        //request.setInterceptor(new AWSAuthenticator());
-
+        AWSReauthenticator  tempToken = new AWSReauthenticator(OAuth, username);
+        AWSAuthenticator signer = new AWSAuthenticator(tempToken);
+        request.setInterceptor(signer);
+        request.setResponseInterceptor(tempToken);
     }
 }
