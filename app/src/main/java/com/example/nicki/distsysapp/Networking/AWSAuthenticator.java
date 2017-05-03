@@ -1,6 +1,9 @@
 package com.example.nicki.distsysapp.Networking;
 
+import android.support.annotation.NonNull;
+
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpExecuteInterceptor;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -12,6 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.AbstractCollection;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
@@ -87,35 +92,27 @@ class Crypto{
 }
 
 public class AWSAuthenticator implements HttpExecuteInterceptor {
-    final static String roleArn = "arn:aws:iam::619517212226:role/Cognito_WEWOUsersAuth_Role";
-    final static String version = "2011-06-15";
-    final static String action = "AssumeRoleWithWebIdentity";
-    final static String stsUrl = "https://sts.amazonaws.com/";
-    final static String tmpAccessUrl = stsUrl + "?Action=" + action + "&RoleArn=" + roleArn + "&Version=" + version;
-    private String clientSecret;
-    private String accessKey;
+    AWSReauthenticator credentialProvider;
 
-    public AWSAuthenticator(String clientSecret, String accessKey){
-        this.clientSecret = clientSecret;
-        this.accessKey = accessKey;
+    public AWSAuthenticator(AWSReauthenticator credentialProvider){
+       this.credentialProvider = credentialProvider;
     }
     private static String getDateStamp(Date d)
     {
-        //return "20170312";
         SimpleDateFormat datestamp = new SimpleDateFormat("YYYYMMdd");
         datestamp.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
         return datestamp.format(d);
+        return "20170321";
     }
 
     private static String getAmzDate(Date d)
     {
-        //return "20170312T133959Z";
         SimpleDateFormat amzdate = new SimpleDateFormat("YYYYMMdd'T'HHmmss'Z'");
         amzdate.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
         return amzdate.format(d);
     }
 
-    private static class Entry implements Comparator<Entry>{
+    private static class Entry implements Comparable<Entry>{
         public Entry(String key, String value){
             this.key = key;
             this.value = value;
@@ -125,8 +122,8 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         public String value;
 
         @Override
-        public int compare(Entry o1, Entry o2) {
-            return o1.key.compareTo(o2.key);
+        public int compareTo(@NonNull Entry o) {
+            return key.compareTo(o.key);
         }
     }
 
@@ -154,6 +151,7 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
             queryBuilder.append('&');
         }
         queryBuilder.deleteCharAt(queryBuilder.length() - 1); //Removes trailing &
+        queryBuilder.append('\n');
     }
 
     private static void buildCanonicalHeaders(HttpRequest request, StringBuilder builder, StringBuilder signedHeaders){
@@ -162,7 +160,13 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         TreeSet<Entry> sortedSet = new TreeSet<Entry>();
         for(Map.Entry<String, Object> entry : set)
         {
-            sortedSet.add(new Entry(entry.getKey().toLowerCase(), entry.getValue().toString()));
+            if(entry.getValue() instanceof String)
+            {
+                sortedSet.add(new Entry(entry.getKey().toLowerCase(), (String)entry.getValue()));
+            }
+            else{
+                sortedSet.add(new Entry(entry.getKey().toLowerCase(), ((ArrayList<String>)entry.getValue()).get(0)));
+            }
         }
         for(Entry entry : sortedSet){
             signedHeaders.append(entry.key);
@@ -191,7 +195,17 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         buildCanonicalHeaders(request, builder, signedHeaders);
         builder.append('\n');
         try {
-            builder.append(Crypto.byteToHexString(Crypto.sha256(request.getContent().toString())));
+            HttpContent content = request.getContent();
+            String contentStr;
+            if(content != null)
+            {
+                contentStr = content.toString();
+            }
+            else
+            {
+                contentStr = "";
+            }
+            builder.append(Crypto.byteToHexString(Crypto.sha256(contentStr)));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             //Java standard defines SHA256 always is available, so we should never reach this point...
@@ -202,6 +216,9 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
     @Override
     public void intercept(HttpRequest request) throws IOException {
         Date d = new Date();
+        HttpHeaders headers = request.getHeaders();
+        headers.set("x-amz-date", getAmzDate(d));
+        Credentials credentials = credentialProvider.getCredentials();
         StringBuilder hackFix = new StringBuilder();
         String canonicalRequest = buildCanonicalRequest(request, hackFix);
         String canonicalHash = null;
@@ -212,12 +229,12 @@ public class AWSAuthenticator implements HttpExecuteInterceptor {
         }
         String algorithm = "AWS4-HMAC-SHA256";
         String credential_scope = getDateStamp(d) + "/" + "eu-west-1" + "/" + "execute-api" + "/" + "aws4_request";
+
         String signString = algorithm + "\n" + getAmzDate(d) + "\n" + credential_scope + "\n" + canonicalHash; //Task 2 - done
-        byte[] signKey = Crypto.getSignatureKey(clientSecret, getDateStamp(d), "eu-west-1", "execute-api");
+        byte[] signKey = Crypto.getSignatureKey(credentials.secret, getDateStamp(d), "eu-west-1", "execute-api");
         String signature = Crypto.byteToHexString(Crypto.HmacSHA256(signString, signKey)); //Task 3 - done
-        String authHeader = algorithm + ' ' + "Credential=" + accessKey + "/" + credential_scope + ", " + "SignedHeaders=" + hackFix.toString() + ", Signature=" + signature;
-        HttpHeaders headers = request.getHeaders();
+        String authHeader = algorithm + ' ' + "Credential=" + credentials.accessKey + "/" + credential_scope + ", " + "SignedHeaders=" + hackFix.toString() + ", Signature=" + signature;
         headers.setAuthorization(authHeader);
-        headers.set("x-amz-date", getAmzDate(d));
+        headers.set("X-Amz-Security-Token", credentials.token);
     }
 }
