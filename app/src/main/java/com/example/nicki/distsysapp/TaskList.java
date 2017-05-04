@@ -1,5 +1,6 @@
 package com.example.nicki.distsysapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,9 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.nicki.distsysapp.Networking.HttpCom;
 import com.example.nicki.distsysapp.Types.Tag;
+import com.example.nicki.distsysapp.Types.Task;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nicki on 3/12/17.
@@ -18,10 +24,6 @@ import java.util.ArrayList;
 public class TaskList extends AppCompatActivity{
 
     ListView lv;
-    TaskCategoryList tcl = new TaskCategoryList();
-    String chosenCategory;// = tcl.getTag();
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +35,28 @@ public class TaskList extends AppCompatActivity{
         Bundle b = getIntent().getExtras();
         Tag tag = new Tag(b.getInt("id"), b.getString("name"));
 
+        HttpCom com = new HttpCom();
+        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
         //TODO Get taskList based on tag
-        ArrayList<String> categoryList = null;
+        List<Task> taskList = com.getTaskList(requestFactory, tag);
 
-        //TODO switch to handle that whatever chosen
-        switch(chosenCategory){
-
-        }
-
-        lv.setAdapter(new ArrayAdapter< String >(this, R.layout.categories, categoryList));
+        lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, taskList));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-
-
-
+                Bundle b = new Bundle();
+                Object o = arg0.getItemAtPosition(position);
+                if(o instanceof Task) {
+                    Task selectedTask = (Task) o;
+                    b.putString("title", selectedTask.getTitle());
+                    b.putString("description", selectedTask.getDescription());
+                    b.putString("address", selectedTask.getAddress());
+                    b.putInt("zip", selectedTask.getZipAddress());
+                    b.putString("price", selectedTask.getPrice());
+                    b.putString("provider", selectedTask.getProvider());
+                    Intent i = new Intent(getApplicationContext(), TaskView.class);
+                    i.putExtras(b);
+                    startActivity(i);
+                }
             }
 
         });

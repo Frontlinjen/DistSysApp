@@ -50,9 +50,24 @@ public class HttpCom{
         return null;
     }
 
-    public void getCommentList(){
-
+    public List<Task> getTaskList(HttpRequestFactory factory, Tag tag){
+        try {
+            HttpRequest httpRequest = factory.buildGetRequest(new GenericUrl("URL TIL TASKS MED TAG"));
+            HttpResponse httpResponse = httpRequest.execute();
+            if(httpResponse.getStatusCode() == 200) {
+                InputStream stream = httpResponse.getContent();
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode node = mapper.readTree(stream);
+                ArrayList<Task> tasks = mapper.treeToValue(node, ArrayList.class);
+                return tasks;
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
+
 
     public boolean CreateTask(Task task, HttpRequestFactory factory){
         try {
