@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
@@ -51,19 +52,13 @@ public class AWSReauthenticator implements HttpResponseInterceptor {
         final String tmpAccessUrl = stsUrl + "?Action=" + action + "&RoleArn=" + roleArn + "&Version=" + version;
         final GenericUrl url = new GenericUrl(tmpAccessUrl + "&RoleSessionName=" + username + "&WebIdentityToken=" + OAuth_Token);
         tempAuthRequest = client.buildGetRequest(url);
+        HttpHeaders headers = tempAuthRequest.getHeaders();
+        headers.setAccept("application/json");
+        requestTemporaryAccessToken();
     }
-    public void login(Login login) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        HttpRequest loginRequest =  client.buildGetRequest(new GenericUrl(authpoint));
-        HttpContent content = new ByteArrayContent("application/json", mapper.writeValueAsBytes(login));
-        loginRequest.setContent(content);
-        HttpResponse auth = loginRequest.execute();
-        InputStream responseData = null;
-        if((responseData = auth.getContent()) != null){
-           CryptoInformation cinfo = mapper.readValue(responseData, CryptoInformation.class);
-        }
+    public Credentials getCredentials(){
+        return credentials;
     }
-
     public void requestTemporaryAccessToken() throws IOException {
         HttpResponse response = tempAuthRequest.execute();
         ObjectMapper mapper = new ObjectMapper();
@@ -74,13 +69,14 @@ public class AWSReauthenticator implements HttpResponseInterceptor {
                 JsonNode node = mapper.readTree(instream);
                 node = node.findValue("Credentials");
                 if(node != null){
+                    credentials = new Credentials();
                     credentials.secret = node.get("SecretAccessKey").asText();
                     credentials.accessKey = node.get("AccessKeyId").asText();
                     credentials.token = node.get("SessionToken").asText();
                 }
             }
             catch(Exception e){
-                //Do something...
+                e.printStackTrace();
             }
             finally {
                 if(instream != null)
