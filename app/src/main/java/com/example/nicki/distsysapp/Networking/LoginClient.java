@@ -27,7 +27,6 @@ public class LoginClient {
     public static String OAuthToken, username;
 
     public static String login(String username, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
-
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory();
         GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/login");
         ObjectMapper mapper = new ObjectMapper();

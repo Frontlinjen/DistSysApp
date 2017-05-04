@@ -25,7 +25,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String sUsername, sPassword;
     EditText username, password;
     Button submit;
-    LoginClient loginClient = new LoginClient();
 
 
     @Override
@@ -38,18 +37,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         submit = (Button) findViewById(R.id.Sign_in);
 
         submit.setOnClickListener(this);
-        sUsername = username.getText().toString();
-        sPassword = password.getText().toString();
 
 
     }
 
     @Override
     public void onClick(View v)  {
+        sUsername = username.getText().toString();
+        sPassword = password.getText().toString();
+
         try {
-         //   if(loginClient.login(username.getText().toString(), password.getText().toString()) != null) {
             if( new LoginTask().execute().get()){
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -81,17 +81,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     class LoginTask extends AsyncTask<Task, Void, Boolean> {
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
-        HttpCom httpCom = new HttpCom();
-
         @Override
         protected Boolean doInBackground(Task... tasks) {
             try {
+                System.out.println("Start login");
                 if (LoginClient.login(sUsername, sPassword) != null) {
                     return true;
                 }
             } catch (IOException | InternalServerException | UnauthorizedException | BadRequestException e) {
-                e.getMessage();
+                e.printStackTrace();
                 final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                 toast.show();
 

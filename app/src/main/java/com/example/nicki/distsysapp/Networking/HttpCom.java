@@ -76,6 +76,7 @@ public class HttpCom{
             HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(task));
             HttpRequest httpRequest = factory.buildPostRequest(url, content);
             HttpResponse httpResponse = httpRequest.execute();
+            System.out.println(httpResponse.getStatusCode());
             if(httpResponse.getStatusCode() == 200){
                 return true;
             }

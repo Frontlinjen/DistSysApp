@@ -69,16 +69,16 @@ public class CreateTask extends AppCompatActivity {
 
 */
                 Task newTask = new Task();
-                newTask.setTitle(title.toString());
-                newTask.setDescription(description.toString());
-                newTask.setPrice(Integer.parseInt(price.toString()));
-                newTask.setSupplies(Integer.parseInt(provider.toString()));
-                newTask.setUrgent(Integer.parseInt(urgency.toString()));
-                newTask.setStreet(address.toString());
-                newTask.setZipaddress(Integer.parseInt(zip.toString()));
-                newTask.setETC(Integer.parseInt(etc.toString()));
+                newTask.setTitle(title.getText().toString());
+                newTask.setDescription(description.getText().toString());
+                newTask.setPrice(Integer.parseInt(price.getText().toString()));
+                newTask.setSupplies(Integer.parseInt(provider.getText().toString()));
+                newTask.setUrgent(Integer.parseInt(urgency.getText().toString()));
+                newTask.setStreet(address.getText().toString());
+                newTask.setZipaddress(Integer.parseInt(zip.getText().toString()));
+                newTask.setETC(Integer.parseInt(etc.getText().toString()));
                 List<Integer> a = new ArrayList<Integer>();
-                a.add(Integer.parseInt(tags.toString()));
+                a.add(Integer.parseInt(tags.getText().toString()));
                 newTask.setTags(a);
                     System.out.println(newTask.toString());
                 try {
