@@ -119,10 +119,10 @@
         android:id="@+id/ctA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adress" />
+        android:text="Address" />
 
     <EditText
-        android:id="@+id/adress"
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Adress"
