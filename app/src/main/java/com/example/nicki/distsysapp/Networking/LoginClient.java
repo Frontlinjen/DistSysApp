@@ -24,7 +24,7 @@ import static java.lang.System.out;
  */
 
 public class LoginClient {
-
+    public static String OAuthToken, username;
     public String login(String username, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
 
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory();
@@ -41,7 +41,7 @@ public class LoginClient {
             case 200:
             JsonNode responseNode = mapper.readTree(response.getContent());
             JsonNode OAuthTokenNode = responseNode.get("token");
-            String OAuthToken = OAuthTokenNode.asText();
+            OAuthToken = OAuthTokenNode.asText();
                 return OAuthToken;
             case 400:
                 throw new Login.BadRequestException("Bad request");

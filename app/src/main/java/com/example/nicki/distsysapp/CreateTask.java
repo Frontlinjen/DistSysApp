@@ -8,18 +8,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nicki.distsysapp.Networking.AWSRequester;
 import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Networking.LoginClient;
 import com.example.nicki.distsysapp.Types.Task;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 //import com.example.nicki.distsysapp.DatabaseController.TaskDTO;
 
 public class CreateTask extends AppCompatActivity {
 
-    EditText title, description, price, provider, urgency, address, etc, tags;
+    EditText title, description, price, provider, urgency, address, etc, tags, zip;
     Button cancel, create;
 
 
@@ -33,9 +44,10 @@ public class CreateTask extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         provider = (EditText) findViewById(R.id.materialProvider);
         urgency = (EditText) findViewById(R.id.urgency);
-        address = (EditText) findViewById(R.id.adress);
-        //etc = (EditText) findViewById(R.id.etc);
-        //tags = (EditText) findViewById(R.id.tags);
+        address = (EditText) findViewById(R.id.address);
+        etc = (EditText) findViewById(R.id.etc);
+        zip = (EditText) findViewById(R.id.zip);
+        tags = (EditText) findViewById(R.id.tags);
 
 
         cancel = (Button) findViewById(R.id.ctCancel);
@@ -63,12 +75,14 @@ public class CreateTask extends AppCompatActivity {
                 newTask.setTitle(title.toString());
                 newTask.setDescription(description.toString());
                 newTask.setPrice(Integer.parseInt(price.toString()));
-                newTask.setETC(Integer.parseInt(etc.toString()));
                 newTask.setSupplies(Integer.parseInt(provider.toString()));
                 newTask.setUrgent(Integer.parseInt(urgency.toString()));
                 newTask.setStreet(address.toString());
-                //newTask.setTags();
-
+                newTask.setZipaddress(Integer.parseInt(zip.toString()));
+                newTask.setETC(Integer.parseInt(etc.toString()));
+                List<Integer> a = new ArrayList<Integer>();
+                a.add(Integer.parseInt(tags.toString()));
+                newTask.setTags(a);
                     System.out.println(newTask.toString());
                 try {
                     if(new CreateTaskTask().execute(newTask).get()) {
@@ -91,7 +105,7 @@ public class CreateTask extends AppCompatActivity {
 }
 
 class CreateTaskTask extends AsyncTask<Task, Void, Boolean>{
-    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
+    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
     HttpCom httpCom = new HttpCom();
 
     @Override

@@ -73,25 +73,8 @@ public class HttpCom{
         try {
             GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks");
             ObjectMapper mapper = new ObjectMapper();
-            ObjectNode node = mapper.createObjectNode();
-           /* node.put("title", task.getTitle());
-            node.put("description", task.getDescription());
-            node.put("price", task.getPrice());
-            node.put("provider", task.getProvider());
-            node.put("urgency", task.getUrgency());
-            node.put("address", task.getAddress());
-            node.put("ECT", task.getECT());
-            node.put("zipAddress", task.getZipAddress());
-            node.put("tags", task.getTags());*/
-            HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(node));
+            HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(task));
             HttpRequest httpRequest = factory.buildPostRequest(url, content);
-            /*HttpExecuteInterceptor interceptor = new HttpExecuteInterceptor() {
-                @Override
-                public void intercept(HttpRequest request) throws IOException {
-                    //request.setHeaders();
-                }
-            };
-            interceptor.intercept(httpRequest);*/
             HttpResponse httpResponse = httpRequest.execute();
             if(httpResponse.getStatusCode() == 200){
                 return true;
