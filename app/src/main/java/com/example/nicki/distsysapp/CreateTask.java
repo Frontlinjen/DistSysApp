@@ -45,7 +45,7 @@ public class CreateTask extends AppCompatActivity {
         provider = (EditText) findViewById(R.id.materialProvider);
         urgency = (EditText) findViewById(R.id.urgency);
         address = (EditText) findViewById(R.id.address);
-        etc = (EditText) findViewById(R.id.etc);
+        etc = (EditText) findViewById(R.id.ect);
         zip = (EditText) findViewById(R.id.zip);
         tags = (EditText) findViewById(R.id.tags);
 
@@ -53,11 +53,8 @@ public class CreateTask extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.ctCancel);
         create = (Button) findViewById(R.id.ctC);
 
-        final java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+      // final java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         final Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
-
-        final Toast toast2 = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
-
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
