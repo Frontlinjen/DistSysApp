@@ -74,7 +74,7 @@ public class HttpCom{
             GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks");
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode node = mapper.createObjectNode();
-            node.put("title", task.getTitle());
+           /* node.put("title", task.getTitle());
             node.put("description", task.getDescription());
             node.put("price", task.getPrice());
             node.put("provider", task.getProvider());
@@ -82,7 +82,7 @@ public class HttpCom{
             node.put("address", task.getAddress());
             node.put("ECT", task.getECT());
             node.put("zipAddress", task.getZipAddress());
-            node.put("tags", task.getTags());
+            node.put("tags", task.getTags());*/
             HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(node));
             HttpRequest httpRequest = factory.buildPostRequest(url, content);
             /*HttpExecuteInterceptor interceptor = new HttpExecuteInterceptor() {

@@ -47,12 +47,12 @@ public class TaskList extends AppCompatActivity{
                 Object o = arg0.getItemAtPosition(position);
                 if(o instanceof Task) {
                     Task selectedTask = (Task) o;
-                    b.putString("title", selectedTask.getTitle());
+                    /*b.putString("title", selectedTask.getTitle());
                     b.putString("description", selectedTask.getDescription());
                     b.putString("address", selectedTask.getAddress());
                     b.putInt("zip", selectedTask.getZipAddress());
                     b.putString("price", selectedTask.getPrice());
-                    b.putString("provider", selectedTask.getProvider());
+                    b.putString("provider", selectedTask.getProvider());*/
                     Intent i = new Intent(getApplicationContext(), TaskView.class);
                     i.putExtras(b);
                     startActivity(i);

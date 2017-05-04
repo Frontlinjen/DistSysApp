@@ -10,9 +10,7 @@ import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.HttpCom;
 import com.example.nicki.distsysapp.Types.Task;
-import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
@@ -21,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CreateTask extends AppCompatActivity {
 
-    EditText title, description, price, provider, urgency, adress;
+    EditText title, description, price, provider, urgency, address, etc, tags;
     Button cancel, create;
 
 
@@ -35,7 +33,10 @@ public class CreateTask extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         provider = (EditText) findViewById(R.id.materialProvider);
         urgency = (EditText) findViewById(R.id.urgency);
-        adress = (EditText) findViewById(R.id.adress);
+        address = (EditText) findViewById(R.id.adress);
+        //etc = (EditText) findViewById(R.id.etc);
+        //tags = (EditText) findViewById(R.id.tags);
+
 
         cancel = (Button) findViewById(R.id.ctCancel);
         create = (Button) findViewById(R.id.ctC);
@@ -58,17 +59,15 @@ public class CreateTask extends AppCompatActivity {
                 boolean created = false;
 
 */
-                Task newTask = new Task(
-                        title.toString(),
-                        description.toString(),
-                        price.toString(),
-                        provider.toString(),
-                        urgency.toString(),
-                        adress.toString(),
-                        "ok",
-                        8210,
-                        1
-                        );
+                Task newTask = new Task();
+                newTask.setTitle(title.toString());
+                newTask.setDescription(description.toString());
+                newTask.setPrice(Integer.parseInt(price.toString()));
+                newTask.setETC(Integer.parseInt(etc.toString()));
+                newTask.setSupplies(Integer.parseInt(provider.toString()));
+                newTask.setUrgent(Integer.parseInt(urgency.toString()));
+                newTask.setStreet(address.toString());
+                //newTask.setTags();
 
                     System.out.println(newTask.toString());
                 try {

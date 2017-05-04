@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v)  {
         try {
-            if(loginClient.login(username.toString(), password.toString())) {
+            if(loginClient.login(username.getText().toString(), password.getText().toString()) != null) {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
             }
         } catch (IOException | InternalServerException | BadRequestException | UnauthorizedException e) {

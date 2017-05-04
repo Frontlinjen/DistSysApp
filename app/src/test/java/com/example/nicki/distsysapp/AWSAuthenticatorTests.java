@@ -4,6 +4,9 @@ import com.example.nicki.distsysapp.Networking.AWSAuthenticator;
 import com.example.nicki.distsysapp.Networking.AWSReauthenticator;
 import com.example.nicki.distsysapp.Networking.AWSRequester;
 import com.example.nicki.distsysapp.Networking.LoginClient;
+import com.example.nicki.distsysapp.Types.Task;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
@@ -60,19 +63,21 @@ public class AWSAuthenticatorTests {
 
     @Test
     public void canCreateTaskObject() throws IOException {
-        final String task = "{\n" +
-                            "  \"Title\": \"Make database plz\",\n" +
-                            "  \"Description\": \"I need database\",\n" +
-                            "  \"Price\": 200,\n" +
-                            "  \"ETC\": 10,\n" +
-                            "  \"Supplies\": 0,\n" +
-                            "  \"Urgent\": 1,\n" +
-                            "  \"Views\": 0,\n" +
-                            "  \"Street\": \"street\",\n" +
-                            "  \"Zipaddress\": 0\n" +
-                            "}";
+        Task task = new Task();
+        task.setTitle("testTitle");
+        task.setDescription("testDesc");
+        task.setPrice(33);
+        task.setSupplies(1);
+        task.setUrgent(1);
+        task.setStreet("testStreet");
+        task.setZipaddress(3460);
+        List<Integer> tags = new ArrayList<Integer>();
+        tags.add(3);
+        task.setTags(tags);
+
+        ObjectMapper mapper = new ObjectMapper();
+        HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(task));
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory(new AWSRequester("s153255", OAuthToken));
-        HttpContent content = new ByteArrayContent(null, task.getBytes());
         HttpRequest request = factory.buildPostRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks"), content);
         HttpResponse response = request.execute();
 

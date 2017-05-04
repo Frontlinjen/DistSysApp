@@ -4,91 +4,91 @@ package com.example.nicki.distsysapp.Types;
  * Created by Thomas on 01-05-2017.
  */
 
-public class Task {
-    String title, description, price, provider, urgency, address, ECT;
-    int zipAddress, tags;
+import java.util.List;
 
-    public Task(String title, String description, String price, String provider, String urgency, String address, String ECT, int zipAddress, int tags){
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.provider = provider;
-        this.urgency = urgency;
-        this.address = address;
-        this.ECT = ECT;
-        this.zipAddress = zipAddress;
+public class Task {
+    public List<Integer> getTags() {
+        return tags;
+    }
+    public void setTags(List<Integer> tags) {
         this.tags = tags;
     }
-
+    public int getID() {
+        return ID;
+    }
+    public void setID(int iD) {
+        ID = iD;
+    }
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
-
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
-
-    public String getProvider() {
-        return provider;
+    public int getETC() {
+        return ETC;
     }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public void setETC(int eTC) {
+        ETC = eTC;
     }
-
-    public String getUrgency() {
-        return urgency;
+    public int isSupplies() {
+        return supplies;
     }
-
-    public void setUrgency(String urgency) {
-        this.urgency = urgency;
+    public void setSupplies(int supplies) {
+        this.supplies = supplies;
     }
-
-    public String getAddress() {
-        return address;
+    public int isUrgent() {
+        return urgent;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUrgent(int urgent) {
+        this.urgent = urgent;
     }
-
-    public String getECT() {
-        return ECT;
+    public int getViews() {
+        return views;
     }
-
-    public void setECT(String ECT) {
-        this.ECT = ECT;
+    public void setViews(int views) {
+        this.views = views;
     }
-
-    public int getZipAddress() {
-        return zipAddress;
+    public String getStreet() {
+        return street;
     }
-
-    public void setZipAddress(int zipAddress) {
-        this.zipAddress = zipAddress;
+    public void setStreet(String street) {
+        this.street = street;
     }
-
-    public int getTags() {
-        return tags;
+    public int getZipaddress() {
+        return zipaddress;
     }
-
-    public void setTags(int tags) {
-        this.tags = tags;
+    public void setZipaddress(int zipaddress) {
+        this.zipaddress = zipaddress;
     }
+    public String getCreatorid() {
+        return creatorid;
+    }
+    public void setCreatorid(String creatorid) {
+        this.creatorid = creatorid;
+    }
+    int ID;
+    String title;
+    String description;
+    int price;
+    int ETC;
+    int supplies;
+    int urgent;
+    int views;
+    String street;
+    int zipaddress;
+    String creatorid;
+    List<Integer> tags;
 }
