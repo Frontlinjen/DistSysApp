@@ -45,7 +45,6 @@ public class TaskCategoryList extends AppCompatActivity {
 
         try {
             taglist = new HttpGetTags().execute().get();
-            System.out.println(taglist.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -56,7 +55,7 @@ public class TaskCategoryList extends AppCompatActivity {
             for(Tag t : taglist){
                 categoryNameList.add(t.name);
             }
-            lv.setAdapter(new ArrayAdapter<String>(this, R.layout.categories, categoryNameList));
+            lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list, categoryNameList));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     //Sets the tag, which determines what list will be shown in the next activity.

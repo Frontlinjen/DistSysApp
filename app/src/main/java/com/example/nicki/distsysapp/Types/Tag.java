@@ -7,8 +7,8 @@ import com.google.api.client.util.Key;
  */
 
 public class Tag {
-    public int id;
     public String name;
+    public int id;
 
     public Tag(int id, String name){
         this.id = id;
