@@ -80,7 +80,6 @@ public class CreateTask extends AppCompatActivity {
                 List<Integer> a = new ArrayList<Integer>();
                 a.add(Integer.parseInt(tags.getText().toString()));
                 newTask.setTags(a);
-                    System.out.println(newTask.toString());
                 try {
                     if(new CreateTaskTask().execute(newTask).get()) {
                         toast.show();

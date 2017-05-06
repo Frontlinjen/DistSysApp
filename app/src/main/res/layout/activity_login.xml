@@ -30,24 +30,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/studienummer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Studienummer"
-                    android:inputType="textNoSuggestions"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+            <EditText
+                android:id="@+id/studienummer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Studienummer"
+                android:inputType="textNoSuggestions"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="s153448" />
 
 
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="kode" />
 
             <Button
                 android:id="@+id/Sign_in"

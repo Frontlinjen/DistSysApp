@@ -21,6 +21,7 @@ import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.JsonParser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -73,10 +74,15 @@ public class HttpCom{
         try {
             GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks");
             ObjectMapper mapper = new ObjectMapper();
+            String show = mapper.writeValueAsString(task);
             HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(task));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            content.writeTo(stream);
+            String contentAsString = new String(stream.toByteArray());
+
             HttpRequest httpRequest = factory.buildPostRequest(url, content);
             HttpResponse httpResponse = httpRequest.execute();
-            System.out.println(httpResponse.getStatusCode());
+            System.out.println("Content: " + httpResponse.parseAsString());
             if(httpResponse.getStatusCode() == 200){
                 return true;
             }

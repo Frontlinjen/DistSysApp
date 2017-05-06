@@ -29,11 +29,12 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="Title of the task"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="testTitle" />
 
         <Space
             android:layout_width="match_parent"
@@ -49,11 +50,12 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="Explain what the task is about"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="testDescription" />
 
         <Space
             android:layout_width="match_parent"
@@ -69,11 +71,12 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="DKK"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="99" />
 
         <Space
             android:layout_width="match_parent"
@@ -89,11 +92,12 @@
             android:id="@+id/materialProvider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="Who provides the materials needed?"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="1" />
 
         <Space
             android:layout_width="match_parent"
@@ -109,11 +113,12 @@
             android:id="@+id/urgency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="How important is it?"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="1" />
 
         <Space
             android:layout_width="match_parent"
@@ -146,7 +151,8 @@
                     android:hint="Adress"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="testStreet" />
             </LinearLayout>
 
             <LinearLayout
@@ -171,7 +177,8 @@
                     android:hint="Zip code"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="9999" />
             </LinearLayout>
 
 
@@ -191,11 +198,12 @@
             android:id="@+id/ect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="Estimated completion time"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="9" />
 
         <Space
             android:layout_width="match_parent"
@@ -211,11 +219,12 @@
             android:id="@+id/tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle"
             android:hint="Tags"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:background="@drawable/rectangle"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:text="1" />
 
         <Space
             android:layout_width="match_parent"
