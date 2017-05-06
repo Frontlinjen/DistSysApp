@@ -69,7 +69,7 @@ public class AWSAuthenticatorTests {
         task.setPrice(33);
         task.setSupplies(1);
         task.setUrgent(1);
-        task.setStreet("testStreet");
+        task.setStreet("Brandts Vænge");
         task.setZipaddress(3460);
         List<Integer> tags = new ArrayList<Integer>();
         tags.add(3);
@@ -80,6 +80,9 @@ public class AWSAuthenticatorTests {
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory(new AWSRequester("s153255", OAuthToken));
         HttpRequest request = factory.buildPostRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks"), content);
         HttpResponse response = request.execute();
+        if(response.getStatusCode() != 200){
+            System.out.println("FAILED: " + response.getStatusCode());
+        }
 
     }
 }

@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.AWSRequester;
-import com.example.nicki.distsysapp.Networking.HttpCom;
 import com.example.nicki.distsysapp.Networking.LoginClient;
 import com.example.nicki.distsysapp.Types.Task;
 import com.google.api.client.http.HttpRequestFactory;

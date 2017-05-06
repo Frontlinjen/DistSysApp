@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Networking.HttpGetTasks;
 import com.example.nicki.distsysapp.Types.Tag;
 import com.example.nicki.distsysapp.Types.Task;
 import com.google.api.client.http.HttpRequestFactory;
@@ -16,6 +16,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by nicki on 3/12/17.
@@ -35,10 +36,14 @@ public class TaskList extends AppCompatActivity{
         Bundle b = getIntent().getExtras();
         Tag tag = new Tag(b.getInt("id"), b.getString("name"));
 
-        HttpCom com = new HttpCom();
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
-        //TODO Get taskList based on tag
-        List<Task> taskList = com.getTaskList(requestFactory, tag);
+        List<Task> taskList = null;
+        try {
+            taskList = new HttpGetTasks().execute(tag).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, taskList));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

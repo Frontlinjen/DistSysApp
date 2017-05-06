@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Networking.HttpGetTags;
 import com.example.nicki.distsysapp.Types.Tag;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
@@ -26,6 +26,7 @@ import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by nicki on 3/12/17.
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class TaskCategoryList extends AppCompatActivity {
     ListView lv;
+    List<Tag> taglist = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,28 +42,31 @@ public class TaskCategoryList extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 
-        HttpCom httpCom = new HttpCom();
-        List<Tag> taglist = httpCom.getTagList(requestFactory);
+        try {
+            taglist = new HttpGetTags().execute().get();
+            System.out.println(taglist.size());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         if (taglist != null) {
-            lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, taglist));
+            List<String> categoryNameList = new ArrayList<String>();
+            for(Tag t : taglist){
+                categoryNameList.add(t.name);
+            }
+            lv.setAdapter(new ArrayAdapter<String>(this, R.layout.categories, categoryNameList));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     //Sets the tag, which determines what list will be shown in the next activity.
                     Bundle b = new Bundle();
-                    Object o = arg0.getItemAtPosition(position);
-                    if(o instanceof Tag){
-                        Tag selectedTag = (Tag)o;
+                        Tag selectedTag = taglist.get(position);
                         b.putInt("id", selectedTag.id);
                         b.putString("name", selectedTag.name);
                         Intent i = new Intent(getApplicationContext(), TaskList.class);
                         i.putExtras(b);
                         startActivity(i);
-                    }
-                    else{
-                        System.out.println("Object was not tag");
-                    }
                 }
             });
         }

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.AWSRequester;
-import com.example.nicki.distsysapp.Networking.HttpCom;
+import com.example.nicki.distsysapp.Networking.HttpCreateTask;
 import com.example.nicki.distsysapp.Networking.LoginClient;
 import com.example.nicki.distsysapp.Types.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -81,7 +81,7 @@ public class CreateTask extends AppCompatActivity {
                 a.add(Integer.parseInt(tags.getText().toString()));
                 newTask.setTags(a);
                 try {
-                    if(new CreateTaskTask().execute(newTask).get()) {
+                    if(new HttpCreateTask().execute(newTask).get()) {
                         toast.show();
                     }
                     else{
@@ -97,15 +97,5 @@ public class CreateTask extends AppCompatActivity {
 
 
 
-    }
-}
-
-class CreateTaskTask extends AsyncTask<Task, Void, Boolean>{
-    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
-    HttpCom httpCom = new HttpCom();
-
-    @Override
-    protected Boolean doInBackground(Task... tasks) {
-        return httpCom.CreateTask(tasks[0], requestFactory);
     }
 }
