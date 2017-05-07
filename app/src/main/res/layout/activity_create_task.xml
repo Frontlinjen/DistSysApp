@@ -142,7 +142,7 @@
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="testStreet" />
+                    android:text="Brandts Vænge" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +168,7 @@
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="9999" />
+                    android:text="3460" />
             </LinearLayout>
 
 

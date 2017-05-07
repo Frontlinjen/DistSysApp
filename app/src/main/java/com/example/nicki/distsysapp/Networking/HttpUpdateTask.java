@@ -35,8 +35,11 @@ public class HttpUpdateTask extends AsyncTask<Task, Void, Boolean> {
             HttpRequest httpRequest = LoginClient.requestFactory.buildPutRequest(url, content);
             HttpResponse httpResponse = httpRequest.execute();
             System.out.println("Content: " + httpResponse.parseAsString());
-            if(httpResponse.getStatusCode() == 200){
+            if(httpResponse.getStatusCode() >= 200 && httpResponse.getStatusCode() < 300){
                 return true;
+            } else {
+                System.out.println("Error: " + httpResponse.getStatusCode());
+                System.out.println(httpResponse.getStatusMessage());
             }
         }
         catch(IOException e){

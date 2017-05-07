@@ -64,9 +64,6 @@ public class CreateTask extends AppCompatActivity {
                     if(new HttpCreateTask().execute(newTask).get()) {
                         toast.show();
                     }
-                    else{
-                        System.out.println("Error httpCom.CreateTask returned false");
-                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

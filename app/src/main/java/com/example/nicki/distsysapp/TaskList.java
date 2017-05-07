@@ -46,8 +46,8 @@ public class TaskList extends AppCompatActivity{
         }
         if (taskList != null) {
             List<String> categoryNameList = new ArrayList<String>();
-            for(Task t : taskList){
-                categoryNameList.add(t.getTitle());
+            for(int i = 0; i < taskList.size(); i++){
+                categoryNameList.add(taskList.get(i).getTitle());
             }
             lv.setAdapter(new ArrayAdapter(this, R.layout.list, categoryNameList));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

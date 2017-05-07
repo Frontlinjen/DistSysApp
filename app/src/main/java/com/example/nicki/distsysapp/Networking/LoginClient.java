@@ -25,15 +25,15 @@ import static java.lang.System.out;
 
 public class LoginClient {
     public static String OAuthToken, username;
-    public static HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(username, OAuthToken));
+    public static HttpRequestFactory requestFactory;
 
 
-    public static String login(String username, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
+    public static String login(String user, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory();
         GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/login");
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
-        node.put("username", username);
+        node.put("username", user);
         node.put("password", password);
         HttpContent body = new ByteArrayContent(null, mapper.writeValueAsBytes(node));
         HttpRequest request = factory.buildPostRequest(url, body);
@@ -41,9 +41,11 @@ public class LoginClient {
         HttpResponse response = request.execute();
         switch (response.getStatusCode()){
             case 200:
-            JsonNode responseNode = mapper.readTree(response.getContent());
-            JsonNode OAuthTokenNode = responseNode.get("token");
-            OAuthToken = OAuthTokenNode.asText();
+                JsonNode responseNode = mapper.readTree(response.getContent());
+                JsonNode OAuthTokenNode = responseNode.get("Token");
+                OAuthToken = OAuthTokenNode.asText();
+                username = user;
+                requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(user, OAuthToken));
                 return OAuthToken;
             case 400:
                 throw new Login.BadRequestException("Bad request");

@@ -29,8 +29,12 @@ public class HttpDeleteTask extends AsyncTask<Integer, Void, Boolean> {
             HttpRequest httpRequest = LoginClient.requestFactory.buildDeleteRequest(url);
             HttpResponse httpResponse = httpRequest.execute();
             System.out.println("Content: " + httpResponse.parseAsString());
-            if (httpResponse.getStatusCode() == 200) {
+            if (httpResponse.getStatusCode() >= 200 && httpResponse.getStatusCode() < 300) {
+                System.out.println("Deleted");
                 return true;
+            } else {
+                System.out.println("Error: " + httpResponse.getStatusCode());
+                System.out.println(httpResponse.getStatusMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -35,7 +35,7 @@ public class HttpGetTags extends AsyncTask<Void, Void, List<Tag>> {
             try {
                 HttpRequest httpRequest = LoginClient.requestFactory.buildGetRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tags"));
                 HttpResponse httpResponse = httpRequest.execute();
-                if(httpResponse.getStatusCode() == 200) {
+                if(httpResponse.getStatusCode() >= 200 && httpResponse.getStatusCode() < 300) {
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode node = mapper.readTree(httpResponse.parseAsString());
                     node = node.get("Tags");

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.example.nicki.distsysapp.Networking.HttpDeleteTask;
 import com.example.nicki.distsysapp.Types.Task;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * Created by Thomas on 04-05-2017.
  */
@@ -38,10 +40,16 @@ public class TaskView extends AppCompatActivity {
         deleteButton = (Button) findViewById(R.id.deleteButton);
         updateButton = (Button) findViewById(R.id.updateButton);
         b = getIntent().getExtras();
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpDeleteTask().execute(b.getInt("ID"));
+                try {
+                    new HttpDeleteTask().execute(b.getInt("ID")).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
 
