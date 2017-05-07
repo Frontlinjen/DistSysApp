@@ -25,18 +25,18 @@ import java.util.concurrent.ExecutionException;
 public class TaskList extends AppCompatActivity{
 
     ListView lv;
+    List<Task> taskList = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.categories);
+        setContentView(R.layout.tasks);
 
-        lv =(ListView)findViewById(R.id.tasks);
+        lv = (ListView) findViewById(R.id.tasks);
         lv.setClickable(true);
 
         Bundle b = getIntent().getExtras();
         Tag tag = new Tag(b.getInt("id"), b.getString("name"));
 
-        List<Task> taskList = null;
         try {
             taskList = new HttpGetTasks().execute(tag).get();
         } catch (InterruptedException e) {
@@ -44,26 +44,31 @@ public class TaskList extends AppCompatActivity{
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        lv.setAdapter(new ArrayAdapter(this, R.layout.tasks, taskList));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-                Bundle b = new Bundle();
-                Object o = arg0.getItemAtPosition(position);
-                if(o instanceof Task) {
-                    Task selectedTask = (Task) o;
-                    /*b.putString("title", selectedTask.getTitle());
-                    b.putString("description", selectedTask.getDescription());
-                    b.putString("address", selectedTask.getAddress());
-                    b.putInt("zip", selectedTask.getZipAddress());
-                    b.putString("price", selectedTask.getPrice());
-                    b.putString("provider", selectedTask.getProvider());*/
-                    Intent i = new Intent(getApplicationContext(), TaskView.class);
-                    i.putExtras(b);
-                    startActivity(i);
-                }
+        if (taskList != null) {
+            List<String> categoryNameList = new ArrayList<String>();
+            for(Task t : taskList){
+                categoryNameList.add(t.getTitle());
             }
+            lv.setAdapter(new ArrayAdapter(this, R.layout.list, categoryNameList));
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                    Bundle b = new Bundle();
+                    Task selectedTask = taskList.get(position);
+                    b.putString("title", selectedTask.getTitle());
+                    b.putString("description", selectedTask.getDescription());
+                    b.putString("address", selectedTask.getStreet());
+                    b.putInt("zip", selectedTask.getZipaddress());
+                    b.putInt("price", selectedTask.getPrice());
+                    b.putInt("provider", selectedTask.getSupplies());
+                    b.putInt("ID", selectedTask.getID());
+                    b.putInt("views", selectedTask.getViews());
+                    b.putString("creatorID", selectedTask.getCreatorid());
+                        Intent i = new Intent(getApplicationContext(), TaskView.class);
+                        i.putExtras(b);
+                        startActivity(i);
+                }
 
-        });
+            });
+        }
     }
 }
