@@ -115,5 +115,4 @@ public class Task {
     public void setTags(List<Integer> tags) {
         this.tags = tags;
     }
-
 }
