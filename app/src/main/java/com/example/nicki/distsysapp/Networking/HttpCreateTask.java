@@ -20,7 +20,6 @@ import java.io.IOException;
  */
 
 public class HttpCreateTask extends AsyncTask<Task, Void, Boolean> {
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
         @Override
         protected Boolean doInBackground(Task... tasks) {
             try {
@@ -32,7 +31,7 @@ public class HttpCreateTask extends AsyncTask<Task, Void, Boolean> {
                 content.writeTo(stream);
                 String contentAsString = new String(stream.toByteArray());
                 System.out.println(contentAsString);
-                HttpRequest httpRequest = requestFactory.buildPostRequest(url, content);
+                HttpRequest httpRequest = LoginClient.requestFactory.buildPostRequest(url, content);
                 HttpResponse httpResponse = httpRequest.execute();
                 System.out.println("Content: " + httpResponse.parseAsString());
                 if(httpResponse.getStatusCode() == 200){

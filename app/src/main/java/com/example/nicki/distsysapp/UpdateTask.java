@@ -1,24 +1,25 @@
 package com.example.nicki.distsysapp;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.nicki.distsysapp.Networking.AWSRequester;
 import com.example.nicki.distsysapp.Networking.HttpCreateTask;
-import com.example.nicki.distsysapp.Networking.LoginClient;
+import com.example.nicki.distsysapp.Networking.HttpUpdateTask;
 import com.example.nicki.distsysapp.Types.Task;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class CreateTask extends AppCompatActivity {
+/**
+ * Created by Thomas on 07-05-2017.
+ */
+
+public class UpdateTask extends AppCompatActivity {
 
     EditText title, description, price, provider, urgency, address, etc, tags, zip;
     Button cancel, create;
@@ -29,6 +30,7 @@ public class CreateTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
+        Bundle b = getIntent().getExtras();
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
         price = (EditText) findViewById(R.id.price);
@@ -38,7 +40,15 @@ public class CreateTask extends AppCompatActivity {
         etc = (EditText) findViewById(R.id.ect);
         zip = (EditText) findViewById(R.id.zip);
         tags = (EditText) findViewById(R.id.tags);
-
+        title.setText(b.getString("title"));
+        description.setText(b.getString("description"));
+        price.setText(String.valueOf(b.getInt("price")));
+        provider.setText(String.valueOf(b.getInt("provider")));
+        urgency.setText(String.valueOf(b.getInt("urgency")));
+        address.setText(b.getString("address"));
+        etc.setText(String.valueOf(b.getInt("etc")));
+        zip.setText(String.valueOf(b.getInt("zip")));
+        tags.setText(String.valueOf(b.getInt("tags")));
 
         create = (Button) findViewById(R.id.ctC);
 
@@ -61,10 +71,9 @@ public class CreateTask extends AppCompatActivity {
                 a.add(Integer.parseInt(tags.getText().toString()));
                 newTask.setTags(a);
                 try {
-                    if(new HttpCreateTask().execute(newTask).get()) {
+                    if (new HttpUpdateTask().execute(newTask).get()) {
                         toast.show();
-                    }
-                    else{
+                    } else {
                         System.out.println("Error httpCom.CreateTask returned false");
                     }
                 } catch (InterruptedException e) {
@@ -74,8 +83,5 @@ public class CreateTask extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 }

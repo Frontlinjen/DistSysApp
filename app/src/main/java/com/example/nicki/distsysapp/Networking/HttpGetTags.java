@@ -29,11 +29,11 @@ import java.util.Map;
  */
 
 public class HttpGetTags extends AsyncTask<Void, Void, List<Tag>> {
-        HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
-        @Override
+
+    @Override
         protected List<Tag> doInBackground(Void... voids) {
             try {
-                HttpRequest httpRequest = requestFactory.buildGetRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tags"));
+                HttpRequest httpRequest = LoginClient.requestFactory.buildGetRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tags"));
                 HttpResponse httpResponse = httpRequest.execute();
                 if(httpResponse.getStatusCode() == 200) {
                     ObjectMapper mapper = new ObjectMapper();

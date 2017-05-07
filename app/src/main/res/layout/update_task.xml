@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,12 +20,11 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="Title of the task"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="testTitle" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -40,12 +40,11 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="Explain what the task is about"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="testDescription" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -61,12 +60,11 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="DKK"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="99" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -82,12 +80,11 @@
             android:id="@+id/materialProvider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="Who provides the materials needed?"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="1" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -103,12 +100,11 @@
             android:id="@+id/urgency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="How important is it?"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="1" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -137,12 +133,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?attr/colorButtonNormal"
+                    android:background="?attr/colorControlHighlight"
                     android:hint="Adress"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="testStreet" />
+                    android:singleLine="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -163,12 +158,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?attr/colorButtonNormal"
+                    android:background="?attr/colorControlHighlight"
                     android:hint="Zip code"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="9999" />
+                    android:singleLine="true" />
             </LinearLayout>
 
 
@@ -188,12 +182,11 @@
             android:id="@+id/ect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="Estimated completion time"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="9" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -209,12 +202,11 @@
             android:id="@+id/tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorButtonNormal"
+            android:background="?attr/colorControlHighlight"
             android:hint="Tags"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
-            android:singleLine="true"
-            android:text="1" />
+            android:singleLine="true" />
 
         <Space
             android:layout_width="match_parent"

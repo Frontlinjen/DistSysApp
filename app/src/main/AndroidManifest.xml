@@ -32,6 +32,9 @@
         <activity android:name=".TaskView">
 
         </activity>
+        <activity android:name=".UpdateTask">
+
+        </activity>
     </application>
 
 </manifest>

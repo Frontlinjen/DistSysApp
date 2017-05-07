@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-
     String sUsername, sPassword;
     EditText username, password;
     Button submit;

@@ -25,6 +25,8 @@ import static java.lang.System.out;
 
 public class LoginClient {
     public static String OAuthToken, username;
+    public static HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(username, OAuthToken));
+
 
     public static String login(String username, String password) throws IOException, Login.InternalServerException, Login.UnauthorizedException, Login.BadRequestException {
         HttpRequestFactory factory = new NetHttpTransport().createRequestFactory();

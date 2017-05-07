@@ -7,18 +7,18 @@ package com.example.nicki.distsysapp.Types;
 import java.util.List;
 
 public class Task {
-    int ID;
-    String title;
-    String description;
-    int price;
-    int ETC;
-    int supplies;
-    int urgent;
-    int views;
-    String street;
-    int zipaddress;
-    String creatorid;
-    List<Integer> tags;
+    private int ID;
+    private String title;
+    private String description;
+    private int price;
+    private int ETC;
+    private int supplies;
+    private int urgent;
+    private int views;
+    private String street;
+    private int zipaddress;
+    private String creatorid;
+    private List<Integer> tags;
 
     public int getID() {
         return ID;

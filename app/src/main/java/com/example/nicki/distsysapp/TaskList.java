@@ -57,6 +57,7 @@ public class TaskList extends AppCompatActivity{
                     b.putString("title", selectedTask.getTitle());
                     b.putString("description", selectedTask.getDescription());
                     b.putString("address", selectedTask.getStreet());
+                    b.putInt("urgent", selectedTask.getUrgent());
                     b.putInt("zip", selectedTask.getZipaddress());
                     b.putInt("price", selectedTask.getPrice());
                     b.putInt("provider", selectedTask.getSupplies());

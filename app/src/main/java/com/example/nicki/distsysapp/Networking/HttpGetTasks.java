@@ -27,7 +27,7 @@ import java.util.Map;
  */
 
 public class HttpGetTasks extends AsyncTask<Tag, Void, List<Task>> {
-    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory(new AWSRequester(LoginClient.username, LoginClient.OAuthToken));
+
     @Override
     protected List<Task> doInBackground(Tag... tags) {
         StringBuilder tagString = new StringBuilder();
@@ -37,7 +37,7 @@ public class HttpGetTasks extends AsyncTask<Tag, Void, List<Task>> {
         }
         tagString.deleteCharAt(tagString.length() - 1);
         try {
-            HttpRequest httpRequest = requestFactory.buildGetRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks?" + tagString));
+            HttpRequest httpRequest = LoginClient.requestFactory.buildGetRequest(new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks?" + tagString));
             HttpResponse httpResponse = httpRequest.execute();
             if(httpResponse.getStatusCode() == 200) {
                 ObjectMapper mapper = new ObjectMapper();

@@ -19,20 +19,27 @@ import java.io.IOException;
  * Created by Thomas on 07-05-2017.
  */
 
-public class HttpDeleteTask extends AsyncTask<Integer, Void, Boolean> {
+public class HttpUpdateTask extends AsyncTask<Task, Void, Boolean> {
 
     @Override
-    protected Boolean doInBackground(Integer... ids) {
+    protected Boolean doInBackground(Task... tasks) {
         try {
-            GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks/" + ids[0]);
-
-            HttpRequest httpRequest = LoginClient.requestFactory.buildDeleteRequest(url);
+            GenericUrl url = new GenericUrl("https://70r7hyxz72.execute-api.eu-west-1.amazonaws.com/development/tasks/" + tasks[0].getID());
+            ObjectMapper mapper = new ObjectMapper();
+            String show = mapper.writeValueAsString(tasks[0]);
+            HttpContent content = new ByteArrayContent(null, mapper.writeValueAsBytes(tasks[0]));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            content.writeTo(stream);
+            String contentAsString = new String(stream.toByteArray());
+            System.out.println(contentAsString);
+            HttpRequest httpRequest = LoginClient.requestFactory.buildPutRequest(url, content);
             HttpResponse httpResponse = httpRequest.execute();
             System.out.println("Content: " + httpResponse.parseAsString());
-            if (httpResponse.getStatusCode() == 200) {
+            if(httpResponse.getStatusCode() == 200){
                 return true;
             }
-        } catch (IOException e) {
+        }
+        catch(IOException e){
             e.printStackTrace();
         }
         return false;
