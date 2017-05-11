@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.HttpGetTasks;
 import com.example.nicki.distsysapp.Types.Tag;
@@ -41,8 +42,12 @@ public class TaskList extends AppCompatActivity{
             taskList = new HttpGetTasks().execute(tag).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         } catch (ExecutionException e) {
             e.printStackTrace();
+            final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
         if (taskList != null) {
             List<String> categoryNameList = new ArrayList<String>();

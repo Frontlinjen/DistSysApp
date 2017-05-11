@@ -65,8 +65,12 @@ public class CreateTask extends AppCompatActivity {
                         toast.show();
                     }
                 } catch (InterruptedException e) {
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                     e.printStackTrace();
                 } catch (ExecutionException e) {
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                     e.printStackTrace();
                 }
             }

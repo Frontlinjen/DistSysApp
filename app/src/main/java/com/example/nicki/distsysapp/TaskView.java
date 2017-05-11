@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nicki.distsysapp.Networking.HttpDeleteTask;
 import com.example.nicki.distsysapp.Types.Task;
@@ -47,8 +48,12 @@ public class TaskView extends AppCompatActivity {
                     new HttpDeleteTask().execute(b.getInt("ID")).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 finish();
             }

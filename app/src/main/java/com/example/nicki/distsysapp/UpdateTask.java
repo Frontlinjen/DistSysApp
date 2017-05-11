@@ -80,8 +80,12 @@ public class UpdateTask extends AppCompatActivity {
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
+                    final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
