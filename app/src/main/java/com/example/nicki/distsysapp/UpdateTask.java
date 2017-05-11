@@ -53,7 +53,7 @@ public class UpdateTask extends AppCompatActivity {
         tags.setText(String.valueOf(b.getInt("tags")));
         create.setText("Update");
 
-        final Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
+        final Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_LONG);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,7 @@ public class UpdateTask extends AppCompatActivity {
                 try {
                     if (new HttpUpdateTask().execute(newTask).get()) {
                         toast.show();
+                        finish();
                     } else {
                         System.out.println("Error HttpUpdateTask returned false");
                     }
