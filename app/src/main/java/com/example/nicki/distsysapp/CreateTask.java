@@ -1,5 +1,6 @@
 package com.example.nicki.distsysapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,6 +63,9 @@ public class CreateTask extends AppCompatActivity {
                 newTask.setTags(a);
                 try {
                     if(new HttpCreateTask().execute(newTask).get()) {
+                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                        startActivity(i);
+
                         toast.show();
                     }
                 } catch (InterruptedException e) {

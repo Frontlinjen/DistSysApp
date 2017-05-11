@@ -49,10 +49,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(i);
             }
+            else {
+                final Toast toast = Toast.makeText(getApplicationContext(), "Forkerte login oplysninger", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         } catch (ExecutionException e) {
             e.printStackTrace();
+            final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -88,9 +96,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             } catch (IOException | InternalServerException | UnauthorizedException | BadRequestException e) {
                 e.printStackTrace();
-                final Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
-
             } return false;
         }
     }
