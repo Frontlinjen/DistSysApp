@@ -73,6 +73,8 @@ public class AWSAuthenticatorTests {
         task.setZipaddress(3460);
         List<Integer> tags = new ArrayList<Integer>();
         tags.add(3);
+        tags.add(2);
+        tags.add(1);
         task.setTags(tags);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -82,6 +84,10 @@ public class AWSAuthenticatorTests {
         HttpResponse response = request.execute();
         if(response.getStatusCode() != 200){
             System.out.println("FAILED: " + response.getStatusCode());
+        }
+        else
+        {
+            System.out.println("Success: " + response.parseAsString());
         }
 
     }
